@@ -1,0 +1,29 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-hostel",
+      "description": "Modern college hostel building",
+      "imageUrl": "https://picsum.photos/seed/hostel1/1200/800",
+      "imageHint": "college hostel"
+    },
+    {
+      "id": "mess-food",
+      "description": "Healthy mess food tray",
+      "imageUrl": "https://picsum.photos/seed/food2/600/400",
+      "imageHint": "healthy food"
+    },
+    {
+      "id": "lost-item",
+      "description": "Lost keys on a table",
+      "imageUrl": "https://picsum.photos/seed/lost/400/300",
+      "imageHint": "lost keys"
+    },
+    {
+      "id": "maintenance",
+      "description": "Electrician working",
+      "imageUrl": "https://picsum.photos/seed/repair/400/300",
+      "imageHint": "electrician repair"
+    }
+  ]
+}

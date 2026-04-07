@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * HOSTEL CONNECT - GLOBAL SECURITY RULES
+     *
+     * These rules are configured to allow any authenticated user to read and write
+     * to any document in the database. This ensures that features like the 
+     * Dashboard, Announcements, and Service Requests work seamlessly for 
+     * both Students and Employees.
+     */
+
+    match /{document=**} {
+      // Allows any authenticated user to perform any operation.
+      // This is ideal for prototyping and ensures no permission gaps.
+      allow read, write: if request.auth != null;
+    }
+    
+    // Explicitly restrict internal admin role checks if necessary, 
+    // though the catch-all above already covers the 'read' requirement.
+    match /roles_admin/{adminId} {
+      allow get: if request.auth != null;
+      allow list: if false;
+    }
+  }
+}

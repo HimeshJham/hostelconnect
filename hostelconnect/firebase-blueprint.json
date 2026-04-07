@@ -1,0 +1,132 @@
+
+{
+  "entities": {
+    "Representative": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Representative",
+      "type": "object",
+      "description": "Represents a student or faculty member designated as a floor or block representative within the hostel.",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "floorOrBlock": { "type": "string" },
+        "type": { "type": "string" },
+        "responsibility": { "type": "string" },
+        "school": { "type": "string" }
+      },
+      "required": ["id", "userId", "name", "email", "phoneNumber", "floorOrBlock", "type"]
+    },
+    "MessMenuDay": {
+      "title": "Mess Menu Day",
+      "type": "object",
+      "description": "Represents the menu items for a specific day in a specific mess.",
+      "properties": {
+        "breakfast": { "type": "string" },
+        "lunch": { "type": "string" },
+        "snacks": { "type": "string" },
+        "dinner": { "type": "string" }
+      }
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "type": "object",
+      "description": "A notice or update for hostel residents.",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "priority": { "type": "string", "enum": ["Normal", "High", "Low"] },
+        "date": { "type": "string" },
+        "pinned": { "type": "boolean" },
+        "createdBy": { "type": "string" },
+        "timestamp": { "type": "number" }
+      }
+    },
+    "ServiceRequest": {
+      "title": "Service Request",
+      "type": "object",
+      "description": "A maintenance or repair request submitted by a student.",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "roomNumber": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "In Progress", "Completed"] },
+        "date": { "type": "string" },
+        "timestamp": { "type": "number" }
+      }
+    },
+    "Complaint": {
+      "title": "Complaint",
+      "type": "object",
+      "description": "An anonymous complaint or feedback submitted by a student.",
+      "properties": {
+        "id": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "summary": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "Resolved"] },
+        "date": { "type": "string" },
+        "timestamp": { "type": "number" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["password", "anonymous"]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/representatives/{representativeId}",
+        "definition": {
+          "entityName": "Representative",
+          "schema": { "$ref": "#/backend/entities/Representative" },
+          "description": "Stores information about student and faculty floor representatives."
+        }
+      },
+      {
+        "path": "/mess_menus/{messId}/days/{dayId}",
+        "definition": {
+          "entityName": "MessMenuDay",
+          "schema": { "$ref": "#/backend/entities/MessMenuDay" },
+          "description": "Stores the meal plan for a specific day."
+        }
+      },
+      {
+        "path": "/announcements/{announcementId}",
+        "definition": {
+          "entityName": "Announcement",
+          "schema": { "$ref": "#/backend/entities/Announcement" },
+          "description": "Hostel wide notices."
+        }
+      },
+      {
+        "path": "/service_requests/{requestId}",
+        "definition": {
+          "entityName": "ServiceRequest",
+          "schema": { "$ref": "#/backend/entities/ServiceRequest" },
+          "description": "Maintenance requests."
+        }
+      },
+      {
+        "path": "/complaints/{complaintId}",
+        "definition": {
+          "entityName": "Complaint",
+          "schema": { "$ref": "#/backend/entities/Complaint" },
+          "description": "Anonymous complaints."
+        }
+      },
+      {
+        "path": "/roles_admin/{adminId}",
+        "definition": {
+          "entityName": "AdminRole",
+          "description": "Identifies administrative users."
+        }
+      }
+    ]
+  }
+}
